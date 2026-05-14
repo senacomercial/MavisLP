@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Masterclass ao Vivo — MaVIS</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0d0d0d;
+      --card-bg: #141414;
+      --green: #3ecf4c;
+      --green-dark: #2db83a;
+      --red: #d32f2f;
+      --yellow: #c8d400;
+      --white: #ffffff;
+      --gray: #aaaaaa;
+      --border: #2a2a2a;
+    }
+
+    body {
+      background-color: var(--black);
+      color: var(--white);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 48px 0 40px;
+      text-align: center;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-size: clamp(28px, 6vw, 44px);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 32px;
+    }
+
+    .hero-title .green { color: var(--green); }
+
+    /* ── BULLETS ── */
+    .bullets {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 36px;
+    }
+
+    .bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 15px;
+      color: #e0e0e0;
+      margin-bottom: 20px;
+    }
+
+    .check-icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      background: var(--green);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .check-icon svg {
+      width: 13px;
+      height: 13px;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ── DATE BOX ── */
+    .date-box {
+      background: var(--red);
+      border-radius: 8px;
+      padding: 20px 24px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .date-box .date-main {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .date-box .date-sub {
+      font-size: 14px;
+      color: #ffcdd2;
+      margin-top: 4px;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 18px 24px;
+      border-radius: 8px;
+      font-size: 17px;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.2s;
+    }
+
+    .btn:hover { opacity: 0.88; }
+
+    .btn-green {
+      background: var(--green);
+      color: #000;
+      margin-bottom: 10px;
+    }
+
+    .btn-yellow {
+      background: var(--yellow);
+      color: #000;
+    }
+
+    .btn-gap-label {
+      text-align: center;
+      font-size: 13px;
+      color: var(--gray);
+      margin-bottom: 12px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    /* ── HOST ── */
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+
+    .host-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    .host-bio {
+      font-size: 15px;
+      color: #cccccc;
+      margin-bottom: 24px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 0;
+    }
+
+    .stat-item {
+      background: var(--card-bg);
+      padding: 16px 12px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--green);
+      display: block;
+    }
+
+    .stat-desc {
+      font-size: 11px;
+      color: var(--gray);
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* ── RESULTS ── */
+    .result-card {
+      border-left: 4px solid var(--green);
+      background: var(--card-bg);
+      border-radius: 0 6px 6px 0;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      font-size: 15px;
+      color: #dddddd;
+      line-height: 1.55;
+    }
+
+    .result-card strong { color: var(--white); }
+
+    /* ── NUMBERED LIST ── */
+    .numbered-list {
+      list-style: none;
+      margin-bottom: 0;
+    }
+
+    .numbered-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .num-badge {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      background: var(--green);
+      color: #000;
+      font-weight: 900;
+      font-size: 15px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .num-content h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .num-content p {
+      font-size: 14px;
+      color: #b0b0b0;
+    }
+
+    /* ── PAIN CARD ── */
+    .pain-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px 22px;
+      margin-bottom: 40px;
+    }
+
+    .pain-label {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+
+    .pain-list {
+      list-style: none;
+    }
+
+    .pain-list li {
+      font-size: 15px;
+      color: #cccccc;
+      padding: 6px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .pain-list li::before {
+      content: '→';
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .pain-cta {
+      margin-top: 14px;
+      font-size: 15px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    .pain-cta::before { content: '→'; }
+
+    /* ── FINAL CTA SECTION ── */
+    .final-cta {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .final-cta .highlight {
+      font-size: clamp(20px, 4.5vw, 26px);
+      font-weight: 900;
+      color: var(--green);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .final-cta .sub {
+      font-size: clamp(18px, 4vw, 22px);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 28px;
+      display: block;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      padding: 24px 0 40px;
+      text-align: center;
+      font-size: 12px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <p class="hero-label">Masterclass ao Vivo no Meet</p>
+
+    <h1 class="hero-title">
+      Dono de Imobiliária:<br>
+      Como Sair dos R$&nbsp;30–50&nbsp;Mil e Escalar para
+      <span class="green">R$&nbsp;100&nbsp;Mil, R$&nbsp;200&nbsp;Mil ou Mais</span>
+      &nbsp;— Sem Expandir a Equipe e Sem Depender de Você
+    </h1>
+
+    <ul class="bullets">
+      <li>
+        <span class="check-icon">
+          <svg viewBox="0 0 12 10"><polyline points="1 5 4.5 8.5 11 1"/></svg>
+        </span>
+        <span>Por que mais leads não resolvem o problema — e o que realmente trava sua operação no mesmo patamar;</span>
+      </li>
+      <li>
+        <span class="check-icon">
+          <svg viewBox="0 0 12 10"><polyline points="1 5 4.5 8.5 11 1"/></svg>
+        </span>
+        <span>Como transformar corretores dependentes em profissionais que agendam, conduzem e fecham com consistência;</span>
+      </li>
+      <li>
+        <span class="check-icon">
+          <svg viewBox="0 0 12 10"><polyline points="1 5 4.5 8.5 11 1"/></svg>
+        </span>
+        <span>O protocolo prático da MaVIS: o método que combina processo + automação para escalar com previsibilidade.</span>
+      </li>
+    </ul>
+
+    <div class="date-box">
+      <p class="date-main">Terça-feira — 12H</p>
+      <p class="date-sub">Limite de 100 pessoas</p>
+    </div>
+
+    <a href="#grupo-vip" class="btn btn-green">📱 Entrar no Grupo VIP</a>
+    <p class="btn-gap-label">Se o link acima não funcionar, entre abaixo 👇</p>
+    <a href="#grupo-2" class="btn btn-yellow">📱 Entrar no Grupo 2</a>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── HOST ── -->
+  <section>
+    <p class="section-label">Quem vai conduzir</p>
+    <p class="host-name">Airton Carneiro (Sena)</p>
+    <p class="host-bio">
+      Estrategista comercial por trás da Sena Comercial. Aqui não tem teoria de palco — tem engenharia operacional aplicada ao mercado imobiliário.
+    </p>
+
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-number">15+</span>
+        <span class="stat-desc">anos de mercado</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">R$&nbsp;303M</span>
+        <span class="stat-desc">em vendas diretas</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">R$&nbsp;2,1Bi</span>
+        <span class="stat-desc">em vendas gerenciadas</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── RESULTS ── -->
+  <section>
+    <p class="section-label">Resultados Reais</p>
+
+    <div class="result-card">
+      <strong>Anderson Gusmão</strong> — Com investimento baixo, gerou visitas qualificadas rapidamente e transformou o movimento comercial em <strong>R$&nbsp;1 milhão em vendas fechadas + R$&nbsp;1 milhão em tratativas.</strong>
+    </div>
+
+    <div class="result-card">
+      <strong>Juliana, Lagoa Santa</strong> — Em menos de 30 dias, vendeu <strong>R$&nbsp;400&nbsp;mil</strong> e ficou muito perto de fechar outros imóveis de alto padrão.
+    </div>
+
+    <div class="result-card">
+      O padrão que se repete: quando a operação para de depender do improviso e passa a rodar com método, os resultados ficam <strong>mensuráveis, replicáveis e previsíveis.</strong>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── WHAT YOU GET ── -->
+  <section>
+    <p class="section-label">O que você recebe na Masterclass</p>
+
+    <ul class="numbered-list">
+      <li>
+        <span class="num-badge">1</span>
+        <div class="num-content">
+          <h3>O mapa completo da MaVIS</h3>
+          <p>As 3 camadas que fazem a operação parar de depender do dono: atração com intenção, qualificação com método e avanço comercial com previsibilidade.</p>
+        </div>
+      </li>
+      <li>
+        <span class="num-badge">2</span>
+        <div class="num-content">
+          <h3>O diagnóstico do gargalo real</h3>
+          <p>Por que tantas imobiliárias ficam presas entre R$&nbsp;30–50&nbsp;mil — e o que separa isso de uma operação pronta para R$&nbsp;100&nbsp;mil, R$&nbsp;200&nbsp;mil ou mais.</p>
+        </div>
+      </li>
+      <li>
+        <span class="num-badge">3</span>
+        <div class="num-content">
+          <h3>Material prático para execução</h3>
+          <p>Scripts, lógica de processo e referências para aplicar imediatamente no time comercial.</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── PAIN POINTS ── -->
+  <div class="pain-card">
+    <p class="pain-label">Se hoje você sente que…</p>
+    <ul class="pain-list">
+      <li>seu time só anda quando você empurra;</li>
+      <li>você ainda fecha boa parte dos contratos pessoalmente;</li>
+      <li>entram leads, mas faltam visitas reais e avanço consistente;</li>
+      <li>o faturamento acontece, mas a operação continua pesada;</li>
+      <li>você trabalha como dono, gestor, closer e apagador de incêndio ao mesmo tempo.</li>
+    </ul>
+    <p class="pain-cta">Essa masterclass é pra você.</p>
+  </div>
+
+  <!-- ── FINAL CTA ── -->
+  <div class="final-cta">
+    <span class="highlight">Terça-feira, às 12h.</span>
+    <span class="sub">O link da transmissão é enviado<br>somente no grupo VIP.</span>
+
+    <a id="grupo-vip" href="#" class="btn btn-green">📱 Entrar no Grupo VIP</a>
+    <p class="btn-gap-label">Se o link acima não funcionar, entre abaixo 👇</p>
+    <a id="grupo-2" href="#" class="btn btn-yellow">📱 Entrar no Grupo 2</a>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <p>© 2025 MaVIS · Sena Comercial</p>
+</footer>
+
+</body>
+</html>
